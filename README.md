@@ -3,6 +3,9 @@
 A command-line script for scraping Bloomberg pages for Fund information and
 updating this information in a Database.
 
+This is a rewrite of https://github.com/jhsu802701/bsf-scrape in idiomatic ruby
+as an example project for learning purposes.
+
 ## Installation
 
 Install this script using rubygems
@@ -15,7 +18,9 @@ Run this script from the command-line using the following command
 
     bsf-scraper
 
-TODO: Document command-line switches
+For information regarding command-line options please run
+
+    bsf-scraper --help
 
 ## Contributing
 
