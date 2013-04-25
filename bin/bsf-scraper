@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 
 require 'trollop'
 require 'bsf/scraper/version'
+require 'bsf/scraper/command'
 
 opts = Trollop::options do
   opt :csv_path, "Full path to output csv file (Required)", :type => :string,
@@ -17,3 +18,5 @@ opts = Trollop::options do
       :short => "-p", :required => true
   version "Bargain Stock Funds Scraper version #{Bsf::Scraper::VERSION}"
 end
+
+Bsf::Scraper::Command.new(opts)
