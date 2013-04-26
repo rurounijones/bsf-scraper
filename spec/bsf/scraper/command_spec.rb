@@ -23,7 +23,7 @@ describe Bsf::Scraper::Command do
     context "argument validation" do
 
       it "accepts a valid set of arguments" do
-        Sequel.stub!(:connect).and_return(true)
+        Sequel.stub(:connect).and_return(true)
         lambda { described_class.new(full_valid_arguments)}.
           should_not raise_error SystemExit
       end
@@ -77,7 +77,8 @@ describe Bsf::Scraper::Command do
     describe "database connection" do
 
       it "sets the Bsf::Scraper module db attribute" do
-        Sequel.stub!(:connect).and_return(true)
+        Sequel.stub(:connect).and_return(true)
+        described_class.any_instance.stub(:create_fund_table)
         described_class.new(full_valid_arguments)
         Bsf::Scraper.db.should == true
       end
@@ -85,7 +86,7 @@ describe Bsf::Scraper::Command do
       context "exception handling" do
 
         before(:each) do
-          Sequel.stub!(:connect).and_raise StandardError, "Test error"
+          Sequel.stub(:connect).and_raise StandardError, "Test error"
         end
 
         it "raises an error" do
