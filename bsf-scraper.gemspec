@@ -26,4 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~>2.13"
 
   spec.add_dependency "trollop", "~> 2.0"
+  spec.add_dependency "sequel"
+  spec.add_dependency "sequel_pg"
 end

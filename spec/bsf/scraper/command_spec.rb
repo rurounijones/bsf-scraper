@@ -4,22 +4,28 @@ describe Bsf::Scraper::Command do
 
   describe '.initialize' do
 
+    let(:error_message) {@error_message.string}
+
+    before(:each) do
+      @error_message = StringIO.new
+      $stderr = @error_message
+    end
+
+    after(:all) do
+      $stderr = STDERR
+    end
+
     it { expect { described_class.new }.
          to raise_error(ArgumentError, /0 for 1/) }
     it { expect { described_class.new("test") }.
          to raise_error(ArgumentError, /must be an Array/) }
 
-    describe "argument validation" do
+    context "argument validation" do
 
-      let(:error_message) {@error_message.string}
-
-      before(:each) do
-        @error_message = StringIO.new
-        $stderr = @error_message
-      end
-
-      after(:all) do
-        $stderr = STDERR
+      it "accepts a valid set of arguments" do
+        Sequel.stub!(:connect).and_return(true)
+        lambda { described_class.new(full_valid_arguments)}.
+          should_not raise_error SystemExit
       end
 
       it "validates presence of --csv-path argument" do
@@ -67,9 +73,44 @@ describe Bsf::Scraper::Command do
       end
 
     end
+
+    describe "database connection" do
+
+      it "sets the Bsf::Scraper module db attribute" do
+        Sequel.stub!(:connect).and_return(true)
+        described_class.new(full_valid_arguments)
+        Bsf::Scraper.db.should == true
+      end
+
+      context "exception handling" do
+
+        before(:each) do
+          Sequel.stub!(:connect).and_raise StandardError, "Test error"
+        end
+
+        it "raises an error" do
+          lambda { described_class.new(full_valid_arguments)}.
+            should raise_error SystemExit
+        end
+
+        it "raises an error" do
+          create_class(full_valid_arguments)
+          error_message.should match /Database Connection Error:/
+        end
+
+      end
+
+    end
+
   end
 
   def create_class(arguments)
     lambda { described_class.new(arguments)}.should raise_error SystemExit
   end
+
+  def full_valid_arguments
+    ['--csv-path', '/tmp/example.csv', '--database-name', 'bsf',
+     '--database-user', 'user', '--database-password', 'password']
+  end
+  
 end
