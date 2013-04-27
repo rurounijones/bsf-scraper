@@ -30,18 +30,31 @@ module Bsf
       end
 
       def index
-        page = get_page(BASE_URL)
-        parse_ticker_data_table(page)
+        parse_index_pages
       end
 
       private
 
-      def get_page(url)
-        @agent.get(url)
+      def parse_index_pages
+        # We always get and parse the first page since it has to
+        # exist by definition
+        @page = @agent.get(BASE_URL)
+        parse_ticker_data_table
+
+        # Any future pages on the other hand, may not exist. So we need to
+        # process them only if they exist
+        while next_page_link
+          @page = @agent.click(next_page_link)
+          parse_ticker_data_table
+        end
       end
 
-      def parse_ticker_data_table(page)
-        page.search('table.ticker_data tr').each_with_index do |row, index|
+      def next_page_link
+        @page.search('a.next_page')[0]
+      end
+
+      def parse_ticker_data_table
+        @page.search('table.ticker_data tr').each_with_index do |row, index|
           # Due to bad HTML coding on the Bloomberg site they do not use a thead
           # but put their headers in the tbody. Because of this we cannot
           # isolate the data rows using xpath so we just skip the first line
@@ -51,7 +64,7 @@ module Bsf
             attributes[:name] = cells[0].text
             attributes[:symbol] = cells[1].text
             attributes[:type] = cells[2].text
-            attributes[:objective] = cells[2].text
+            attributes[:objective] = cells[3].text
             filter_funds(attributes)
           end
         end
@@ -59,7 +72,7 @@ module Bsf
 
       def filter_funds(attributes)
         unless NAMES.any? {|name| name.match /#{attributes[:name].downcase}/} ||
-        OBJECTIVES.any? {|obj| obj.match /#{attributes[:name].downcase}/}
+        OBJECTIVES.any? {|obj| obj.match /#{attributes[:objective].downcase}/}
           clean_attributes(attributes)
         end
       end
