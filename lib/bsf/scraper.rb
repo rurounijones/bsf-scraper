@@ -1,3 +1,4 @@
+require 'sequel'
 require "bsf/scraper/version"
 
 module Bsf
@@ -11,6 +12,7 @@ module Bsf
 
     def self.db=(db)
       @@db ||= db
+      Sequel::Model.db = db
     end
 
   end

@@ -2,6 +2,7 @@ require 'trollop'
 require 'sequel'
 require 'bsf/scraper'
 require 'bsf/scraper/version'
+require 'bsf/scraper/fund_indexer'
 
 module Bsf
   module Scraper
@@ -10,6 +11,7 @@ module Bsf
       def initialize(arguments)
         parse_arguments(arguments)
         open_database_connection
+        index_funds
       end
 
       private
@@ -60,7 +62,7 @@ module Bsf
       def create_fund_table
         Bsf::Scraper.db.create_table?(:funds) do
           primary_key :id
-          String      :symbol,      :size=>255
+          String      :symbol,      :size=>255, :unique => true
           String      :name,        :size=>255
           String      :type,        :size=>255
           String      :objective,   :size=>255
@@ -83,6 +85,10 @@ module Bsf
           DateTime    :created_at
           DateTime    :updated_at
         end
+      end
+
+      def index_funds
+        Bsf::Scraper::FundIndexer.new.index
       end
 
     end
