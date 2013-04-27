@@ -83,7 +83,7 @@ describe Bsf::Scraper::Command do
         described_class.any_instance.stub(:create_fund_table)
         described_class.any_instance.stub(:index_funds)
         described_class.new(full_valid_arguments)
-        Bsf::Scraper.db.should == true
+        Bsf::Scraper.db.class.should == Bsf::Database
       end
 
       context "exception handling" do
@@ -97,7 +97,7 @@ describe Bsf::Scraper::Command do
             should raise_error SystemExit
         end
 
-        it "raises an error" do
+        it "outputs an error message" do
           create_class(full_valid_arguments)
           error_message.should match /Database Connection Error:/
         end
