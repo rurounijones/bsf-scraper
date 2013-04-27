@@ -58,10 +58,8 @@ module Bsf
       end
 
       def filter_funds(attributes)
-        if NAMES.any? {|name| name.match /#{attributes[:name].downcase}/} ||
+        unless NAMES.any? {|name| name.match /#{attributes[:name].downcase}/} ||
         OBJECTIVES.any? {|obj| obj.match /#{attributes[:name].downcase}/}
-          puts "Filtering out #{attributes[:name]}"
-        else
           clean_attributes(attributes)
         end
       end
