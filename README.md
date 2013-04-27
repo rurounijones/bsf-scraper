@@ -3,8 +3,8 @@
 A command-line script for scraping Bloomberg pages for Fund information and
 updating this information in a Database.
 
-This is a rewrite of https://github.com/jhsu802701/bsf-scrape in idiomatic ruby
-as an example project for learning purposes.
+This is a rewrite of https://github.com/jhsu802701/bsf-scrape-old in 
+idiomatic ruby as an example project for learning purposes.
 
 ## Installation
 
