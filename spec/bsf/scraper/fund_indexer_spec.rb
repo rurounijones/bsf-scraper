@@ -37,7 +37,7 @@ describe Bsf::Scraper::FundIndexer do
   describe '.index' do
 
     it 'Requests fund index pages' do
-      VCR.use_cassette('index_requests') do
+      with_vcr do
         described_class.new.index
         WebMock.should
           have_requested(:get,
@@ -47,7 +47,16 @@ describe Bsf::Scraper::FundIndexer do
 
     # TODO Flesh out this test
     it 'Populates the database with basic fund information' do
-      Bsf::Fund.count.should > 0
+      with_vcr do
+        described_class.new.index
+        Bsf::Fund.count.should > 0
+      end
+    end
+  end
+
+  def with_vcr(&block)
+    VCR.use_cassette('index_requests') do
+      yield
     end
   end
 
