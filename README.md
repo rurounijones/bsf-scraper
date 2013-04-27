@@ -24,6 +24,18 @@ For information regarding command-line options please run
 
 ## Contributing
 
+This script comes with an rspec test suite. Any contributions should be tested.
+
+You can run the tests with either:
+
+    rake spec
+
+or
+
+    rake
+
+The basic contribution flow is as follows:
+
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
