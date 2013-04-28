@@ -10,7 +10,7 @@ module Bsf
     def create_fund_table
       @connection.create_table?(:funds) do
         primary_key :id
-        String      :symbol,      :size=>255, :unique => true
+        String      :symbol,      :size=>255, :unique => true, :index => true
         String      :name,        :size=>255
         String      :type,        :size=>255
         String      :objective,   :size=>255

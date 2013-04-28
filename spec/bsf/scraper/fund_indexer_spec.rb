@@ -30,15 +30,29 @@ describe Bsf::Scraper::FundIndexer do
     end
 
     context 'database population' do
-    # To perform the following tests quickly we need to create a page
-    # with sample fund data which will trigger the name and objective filters.
-    # This is a hassle which I cannot be bothered to do at the moment.
-      it 'filters out funds with unwanted names' do
-        pending 'Need to modify sample page with test data'
+
+      # To perform the following tests quickly we need to create a page
+      # with sample fund data which will trigger the name and objective filters.
+      # This is a hassle which I cannot be bothered to do at the moment.
+
+      # The fact that we want to test these methods but that they are totally
+      # private is a good indication that we want to extract them out of the
+      # FundIndexer class
+      context 'fund filtering' do
+        it 'filters out funds with unwanted names' do
+          pending 'Need to modify sample page with test data'
+        end
+
+        it 'filters out funds with unwanted objectives' do
+          pending 'Need to modify sample page with test data'
+        end
       end
 
-      it 'filters out funds with unwanted objectives' do
-        pending 'Need to modify sample page with test data'
+      context 'record creation' do
+
+        it 'creates new records'
+        it 'updates existing records'
+
       end
     end
   end
