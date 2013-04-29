@@ -34,6 +34,15 @@ describe Bsf::Database do
 
   end
 
+  describe 'method_missing' do
+
+    it 'invocates the method on the Sequel database connection' do
+      database = described_class.new(options)
+      database.servers.should == [:default]
+    end
+    
+  end
+
   def options(host = false)
     hash = { :database_name => 'test', :database_user => 'test',
       :database_password => 'test' }
