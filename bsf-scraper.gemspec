@@ -27,6 +27,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock', '~>1.9.0' # VCR limited to 1.9
   spec.add_development_dependency 'vcr', '~>2.4.0'
   spec.add_development_dependency 'sqlite3'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'coveralls'
+  
 
   spec.add_dependency 'trollop', '~> 2.0'
   spec.add_dependency 'sequel'

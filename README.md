@@ -1,6 +1,7 @@
 # Bargain Stock Fund's Bloomberg Scraper
 
 [![Build Status](https://secure.travis-ci.org/rurounijones/bsf-scraper.png)](http://travis-ci.org/rurounijones/bsf-scraper)
+[![Coverage Status](https://coveralls.io/repos/rurounijones/bsf-scraper/badge.png?branch=master)](https://coveralls.io/r/rurounijones/bsf-scraper)
 
 A command-line script for scraping Bloomberg pages for Fund information and
 updating this information in a Database.
@@ -35,6 +36,10 @@ You can run the tests with either:
 or
 
     rake
+
+Code coverage information is created when running the tests. This information 
+can be found in the 'coverage' directory which will be created after the
+first test. Subsequent tests will update this directory.
 
 The basic contribution flow is as follows:
 
