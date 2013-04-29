@@ -25,7 +25,7 @@ describe Bsf::Scraper::Command do
       it "accepts a valid set of arguments" do
         Sequel.stub(:connect).and_return(true)
         described_class.any_instance.stub(:create_fund_table)
-        described_class.any_instance.stub(:index_funds)        
+        described_class.any_instance.stub(:index_funds)
         lambda { described_class.new(full_valid_arguments)}.
           should_not raise_error SystemExit
       end
@@ -74,6 +74,35 @@ describe Bsf::Scraper::Command do
         error_message.should match /--database-password' needs a parameter/
       end
 
+    end
+
+    describe 'fund indexing' do
+
+      before(:each) do
+        Sequel.stub(:connect).and_return(true)
+        described_class.any_instance.stub(:create_fund_table)
+      end
+
+      context 'when enabled' do
+
+        it 'indexes the funds' do
+          fund_indexer = double('fund_indexer')
+          fund_indexer.stub(:index)
+          Bsf::Scraper::FundIndexer.stub(:new).and_return(fund_indexer)
+          Bsf::Scraper::FundIndexer.should_receive(:new)
+          fund_indexer.should_receive(:index)
+          described_class.new(full_valid_arguments)
+        end
+
+      end
+
+      context 'when disabled' do
+
+        it 'does not index the funds' do
+          Bsf::Scraper::FundIndexer.should_not_receive(:new)
+          described_class.new(full_valid_arguments << '--skip-fund-indexing')
+        end
+      end
     end
 
     describe "database connection" do

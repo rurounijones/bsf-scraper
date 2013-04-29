@@ -12,7 +12,7 @@ module Bsf
         parse_arguments(arguments)
         open_database_connection
         create_fund_table
-        index_funds
+        index_funds unless @options[:skip_fund_indexing]
       end
 
       private
@@ -33,6 +33,7 @@ module Bsf
               :short => "-u", :required => true
           opt :database_password, "Database password (Required)",
               :type => :string, :short => "-p", :required => true
+          opt :skip_fund_indexing, "Skip fund indexing from Bloomberg site"
           version "Bargain Stock Funds Scraper version #{Bsf::Scraper::VERSION}"
         end
       end
