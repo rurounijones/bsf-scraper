@@ -84,12 +84,7 @@ module Bsf
       end
 
       def create_fund(attributes)
-        # Sequel expects the database connection to be setup before the class
-        # is defined. Because of that we cannot put the require at the top like
-        # usual. We need to define it when we use it
-        require 'bsf/fund'
-
-        fund = Fund.where(:symbol => attributes[:symbol]).first
+        fund = Bsf::Fund.where(:symbol => attributes[:symbol]).first
         if fund
           # Sequel is smart and only updates the record if the attributes are
           # actually changed.
