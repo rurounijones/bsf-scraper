@@ -14,8 +14,8 @@ module Bsf
         String      :name,        :size=>255
         String      :type,        :size=>255
         String      :objective,   :size=>255
-        String      :category,    :size=>6
-        String      :family,      :size=>6
+        String      :category,    :size=>255
+        String      :family,      :size=>255
         String      :style_size,  :size=>6
         String      :style_value, :size=>6
         Float       :price
