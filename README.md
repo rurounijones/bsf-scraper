@@ -1,4 +1,6 @@
-# Bsf::Scraper
+# Bargain Stock Fund's Bloomberg Scraper
+
+[![Build Status](https://secure.travis-ci.org/rurounijones/bsf-scraper.png)](http://travis-ci.org/rurounijones/bsf-scraper)
 
 A command-line script for scraping Bloomberg pages for Fund information and
 updating this information in a Database.
