@@ -9,8 +9,13 @@ describe Bsf::Database do
 
   describe '.initialize' do
 
-    it 'connects to the database' do
+    it 'connects to the database via socket' do
       described_class.new(options).instance_variable_get(:@connection).class.
+        should == Sequel::SQLite::Database
+    end
+
+    it 'connects to the database via TCP/IP' do
+      described_class.new(options(true)).instance_variable_get(:@connection).class.
         should == Sequel::SQLite::Database
     end
 
@@ -29,9 +34,11 @@ describe Bsf::Database do
 
   end
 
-  def options
-    { :database_name => 'test', :database_user => 'test',
+  def options(host = false)
+    hash = { :database_name => 'test', :database_user => 'test',
       :database_password => 'test' }
+    hash[:database_host] = '127.0.0.1' if host
+    hash
   end
 
 end
