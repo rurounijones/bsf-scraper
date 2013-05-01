@@ -24,10 +24,10 @@ module Bsf
         Float       :pe
         Float       :ps
         Float       :expense_ratio
-        Float       :load_front
-        Float       :load_back
-        Fixnum      :min_inv
-        Float       :turnover
+        Float       :load_front        # maximum front end sales load
+        Float       :load_back         # maximum deferred sales load
+        Fixnum      :min_inv           # minimum_initial_investment
+        Float       :turnover          # annual holdings turnover
         Float       :biggest_position
         Float       :assets
         DateTime    :created_at

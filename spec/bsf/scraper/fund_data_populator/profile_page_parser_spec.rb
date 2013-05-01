@@ -37,6 +37,26 @@ describe Bsf::Scraper::FundDataPopulator::ProfilePageParser do
       fund.style_value.should == 'Growth'
     end
 
+    it 'should parse the minimum initial investment' do
+      fund.min_inv.should == 2500
+    end
+
+    it 'should parse the annual holdings turnover' do
+      fund.turnover.should == 45.5
+    end
+
+    it 'should parse the expense ratio' do
+      fund.expense_ratio.should == 1.75
+    end
+
+    it 'should parse the max front end sales load' do
+      fund.load_front.should == 5.75
+    end
+
+    it 'should parse the max deferred sales Load' do
+      fund.load_back.should == 2.1
+    end
+
   end
 
   def dummy_page
