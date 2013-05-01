@@ -5,11 +5,11 @@
 [![Code Climate](https://codeclimate.com/github/rurounijones/bsf-scraper.png)](https://codeclimate.com/github/rurounijones/bsf-scraper)
 [![Dependency Status](https://gemnasium.com/rurounijones/bsf-scraper.png)](https://gemnasium.com/rurounijones/bsf-scraper)
 
-A command-line script for scraping Bloomberg pages for Fund information and
-updating this information in a Database.
+A command-line script for scraping Bloomberg and Yahoo Finance pages for fund
+information and updating this information in a Database.
 
 This is a rewrite of https://github.com/jhsu802701/bsf-scrape-old in 
-idiomatic ruby as an example project for learning purposes.
+idiomatic ruby as an example project for practice and teaching purposes.
 
 ## Installation
 
