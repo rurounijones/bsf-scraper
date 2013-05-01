@@ -29,6 +29,14 @@ describe Bsf::Scraper::FundDataPopulator::ProfilePageParser do
       fund.assets.should == 15_490_000
     end
 
+    it 'should parse the size' do
+      fund.style_size.should == 'Medium'
+    end
+
+    it 'should parse the value' do
+      fund.style_value.should == 'Growth'
+    end
+
   end
 
   def dummy_page

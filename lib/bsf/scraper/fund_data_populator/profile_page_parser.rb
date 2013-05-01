@@ -26,6 +26,8 @@ module Bsf
           @fund.category = get_category
           @fund.family = get_family
           @fund.assets = get_assets
+          @fund.style_size = get_size
+          @fund.style_value = get_value
         end
 
         private
@@ -67,6 +69,37 @@ module Bsf
               raise StandardError "Unknown assets price suffix"
             end
           end
+        end
+
+        def stylebox_value
+          @stylebox ||= confirm_result(
+                        data_tables.scan(
+                          %r{http://us.i1.yimg.com/us.yimg.com/i/fi/3_0stylelargeeq([0-9]).gif}
+                        )
+                      ).to_i
+          @stylebox == 0 ? nil : @stylebox
+        end
+
+        def get_size
+          return nil unless stylebox_value
+          case (stylebox_value / 3)
+          when 0..1
+            then 'Large'
+          when 1..2
+            then 'Medium'
+          when 2..3
+            then 'Small'
+          else
+            raise StandardError, 'Unknown size'
+          end
+        end
+
+        def get_value
+          return nil if stylebox_value.nil?
+          return 'Value' if [1,4,7].include?(stylebox_value)
+          return 'Blend' if [2,5,8].include?(stylebox_value)
+          return 'Growth' if [3,6,9].include?(stylebox_value)
+          raise StandardError, 'Unknown value'
         end
 
         def confirm_result(result)
