@@ -28,8 +28,11 @@ work on jruby as the database dependencies need to be adapted.
 Clone this repository into the directory of your choosing.
 
 Then cd to that directory (this script has rvm/rbenv config files 
-which will trigger if you have either of them installed) then run 
-bundle install to install the supporting gems. 
+which will trigger if you have either of them installed) then run
+    
+    bundle install
+
+to install the supporting gems. 
 
 ### From Rubygems
 
@@ -42,7 +45,16 @@ Install this script from rubygems using the gem command
 
 ## Usage
 
-Run this script from the command-line using the following command
+If you installed from github then run the following command from the
+gem's root directory
+
+    ruby bin/bsf-scraper
+    
+For information regarding command-line options please run
+
+    ruby bin/bsf-scraper --help
+
+If you installed from rubygems then you can simply run the following
 
     bsf-scraper
 
