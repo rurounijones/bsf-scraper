@@ -13,27 +13,32 @@ idiomatic ruby as an example project for practice and teaching purposes.
 
 ## Installation
 
-At the moment there is no version on rubygems to to use this script you
-need to clone this repository.
+### Dependencies
 
-cd to that directory (this script has rvm/rbenv config files) then run bundle
-install to install the supporting gems. Once that is done run the following 
-command
-
-    $ ruby bin/bsf-scraper --help
-
-This will output command-line arguments that the script expects.
-
-The script expects that a PostgreSQL database is installed on your 
+The gem expects that a PostgreSQL database is installed on your 
 system. The script will attempt to create a table (funds) in the 
 database if it does not yet exist so your PostgreSQL user will 
 require the relevant permissions.
 
-Install this script using rubygems
+This gem has been tested on ruby 1.9.3 and 2.0.0. It will NOT
+work on jruby as the database dependencies need to be adapted.
+
+### From Github
+
+Clone this repository into the directory of your choosing.
+
+Then cd to that directory (this script has rvm/rbenv config files 
+which will trigger if you have either of them installed) then run 
+bundle install to install the supporting gems. 
+
+### From Rubygems
+
+Note that this option does not work yet as a gem version has not been
+pushed to rubygems. Please use the "From github" method.
+
+Install this script from rubygems using the gem command
 
     $ gem install bsf-scraper
-
-This gem has been tesetd on ruby 1.9.3 and 2.0.0
 
 ## Usage
 
