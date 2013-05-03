@@ -19,10 +19,10 @@ module Bsf
         String      :style_size,  :size=>6
         String      :style_value, :size=>6
         Float       :price
-        Float       :pcf
-        Float       :pb
-        Float       :pe
-        Float       :ps
+        Float       :pcf               # price cashflow
+        Float       :pb                # price book
+        Float       :pe                # price earnings
+        Float       :ps                # price sales
         Float       :expense_ratio
         Float       :load_front        # maximum front end sales load
         Float       :load_back         # maximum deferred sales load
