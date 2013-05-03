@@ -3,4 +3,4 @@ $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 
 require 'bsf/scraper/command'
 
-Bsf::Scraper::Command.new(ARGV.dup)
+Bsf::Scraper::Command.new(ARGV.dup).run

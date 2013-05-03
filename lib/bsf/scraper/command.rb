@@ -10,6 +10,9 @@ module Bsf
 
       def initialize(arguments)
         parse_arguments(arguments)
+      end
+
+      def run
         open_database_connection
         create_fund_table
         index_funds unless @options[:skip_fund_indexing]

@@ -23,9 +23,6 @@ describe Bsf::Scraper::Command do
     context "argument validation" do
 
       it "accepts a valid set of arguments" do
-        Sequel.stub(:connect).and_return(true)
-        described_class.any_instance.stub(:create_fund_table)
-        described_class.any_instance.stub(:index_funds)
         lambda { described_class.new(full_valid_arguments)}.
           should_not raise_error SystemExit
       end
@@ -81,6 +78,7 @@ describe Bsf::Scraper::Command do
       before(:each) do
         Sequel.stub(:connect).and_return(true)
         described_class.any_instance.stub(:create_fund_table)
+        described_class.any_instance.stub(:populate_fund_data)
       end
 
       context 'when enabled' do
@@ -91,7 +89,7 @@ describe Bsf::Scraper::Command do
           Bsf::Scraper::FundIndexer.stub(:new).and_return(fund_indexer)
           Bsf::Scraper::FundIndexer.should_receive(:new)
           fund_indexer.should_receive(:index)
-          described_class.new(full_valid_arguments)
+          described_class.new(full_valid_arguments).run
         end
 
       end
@@ -100,7 +98,7 @@ describe Bsf::Scraper::Command do
 
         it 'does not index the funds' do
           Bsf::Scraper::FundIndexer.should_not_receive(:new)
-          described_class.new(full_valid_arguments << '--skip-fund-indexing')
+          described_class.new(full_valid_arguments << '--skip-fund-indexing').run
         end
       end
     end
@@ -111,7 +109,7 @@ describe Bsf::Scraper::Command do
         Sequel.stub(:connect).and_return(true)
         described_class.any_instance.stub(:create_fund_table)
         described_class.any_instance.stub(:index_funds)
-        described_class.new(full_valid_arguments)
+        described_class.new(full_valid_arguments).run
         Bsf::Scraper.db.class.should == Bsf::Database
       end
 
@@ -122,12 +120,12 @@ describe Bsf::Scraper::Command do
         end
 
         it "raises an error" do
-          lambda { described_class.new(full_valid_arguments)}.
+          lambda { described_class.new(full_valid_arguments).run}.
             should raise_error SystemExit
         end
 
         it "outputs an error message" do
-          create_class(full_valid_arguments)
+          lambda { described_class.new(full_valid_arguments).run }.should raise_error SystemExit
           error_message.should match /Database Connection Error:/
         end
 
