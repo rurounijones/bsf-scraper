@@ -26,6 +26,7 @@ module Bsf
                      'flexible portfolio', 'sector']
 
       def initialize
+        require 'bsf/fund'
         @agent = Mechanize.new
       end
 
