@@ -6,15 +6,16 @@ describe Bsf::Scraper::FundDataPopulator::HoldingsPageParser do
 
   describe '.initialize' do
     it { expect { described_class.new }.to raise_error(ArgumentError,
-                                                       /0 for 2/) }
+                                                       /0 for 3/) }
   end
 
   describe '#parse' do
 
     let(:fund) {OpenStruct.new}
+    let(:current_fund_price) { 14.00 }
 
     before(:each) do
-      described_class.new(fund, dummy_page).parse
+      described_class.new(fund, dummy_page, current_fund_price).parse
     end
 
     it 'should parse the biggest position' do
@@ -39,6 +40,26 @@ describe Bsf::Scraper::FundDataPopulator::HoldingsPageParser do
 
     it 'should parse the original price sales' do
       fund.original_price_sales.should == 1.42
+    end
+
+    it 'should set the price' do
+      fund.price.should == 14
+    end
+
+    it 'should calculate the current price book' do
+      fund.pb.should == 2.3125000000000004
+    end
+
+    it 'should calculate the current price earnings' do
+      fund.pe.should == 18.614583333333336
+    end
+
+    it 'should calculate the current price cashflow' do
+      fund.pcf.should == 10.177083333333334
+    end
+
+    it 'should calculate the current price sales' do
+      fund.ps.should == 1.4791666666666667
     end
 
   end

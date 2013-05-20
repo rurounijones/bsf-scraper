@@ -3,6 +3,7 @@ require 'bsf/scraper'
 require 'bsf/database'
 require 'bsf/scraper/version'
 require 'bsf/scraper/fund_indexer'
+require 'bsf/scraper/fund_data_populator'
 
 module Bsf
   module Scraper
@@ -16,6 +17,7 @@ module Bsf
         open_database_connection
         create_fund_table
         index_funds unless @options[:skip_fund_indexing]
+        populate_fund_data
       end
 
       private
@@ -56,6 +58,13 @@ module Bsf
 
       def index_funds
         Bsf::Scraper::FundIndexer.new.index
+      end
+
+      def populate_fund_data
+        require 'bsf/fund'
+        Bsf::Fund.order(:id).all.each do |fund|
+          Bsf::Scraper::FundDataPopulator.new(fund).populate
+        end
       end
 
     end

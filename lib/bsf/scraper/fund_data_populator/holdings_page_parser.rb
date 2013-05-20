@@ -4,9 +4,10 @@ module Bsf
 
       class HoldingsPageParser
 
-        def initialize(fund, holdings_page)
+        def initialize(fund, holdings_page, current_price)
           @holdings_page = holdings_page
           @fund = fund
+          @current_price = current_price
         end
 
         def parse
@@ -16,6 +17,11 @@ module Bsf
           @fund.original_price_earnings = parse_original_price_earnings
           @fund.original_price_cashflow= parse_original_price_cashflow
           @fund.original_price_sales = parse_original_price_sales
+          @fund.price = @current_price
+          @fund.pb = calculate_current_price_book
+          @fund.pe = calculate_current_price_earnings
+          @fund.pcf = calculate_current_price_cashflow
+          @fund.ps = calculate_current_price_sales
         end
 
         private
@@ -47,6 +53,32 @@ module Bsf
                                       'sibling::table[1]/tr/td/table/tr' +
                                       '[2]/td[3]').text.to_f
           result > 0 ? result : nil
+        end
+
+        def parse_current_price
+          return nil unless current_price > 0
+        end
+
+        def calculate_current_price_book
+          calculate_ratios @fund.original_price_book
+        end
+
+        def calculate_current_price_earnings
+          calculate_ratios @fund.original_price_earnings
+        end
+
+        def calculate_current_price_cashflow
+          calculate_ratios @fund.original_price_cashflow
+        end
+
+        def calculate_current_price_sales
+          calculate_ratios @fund.original_price_sales
+        end
+
+        def calculate_ratios(ratio)
+          return nil unless @fund.price && @fund.original_price && ratio
+          0
+          (@fund.price / @fund.original_price) * ratio
         end
 
         def parse_price(price)

@@ -109,6 +109,7 @@ describe Bsf::Scraper::Command do
         Sequel.stub(:connect).and_return(true)
         described_class.any_instance.stub(:create_fund_table)
         described_class.any_instance.stub(:index_funds)
+        described_class.any_instance.stub(:populate_fund_data)
         described_class.new(full_valid_arguments).run
         Bsf::Scraper.db.class.should == Bsf::Database
       end
