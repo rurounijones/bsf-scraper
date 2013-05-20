@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'coveralls'
-  spec.add_development_dependency 'json', '~> 1.7.7'
+  spec.add_development_dependency 'json', '~> 1.8.0'
   
 
   spec.add_dependency 'trollop', '~> 2.0'
