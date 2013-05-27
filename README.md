@@ -78,6 +78,10 @@ Code coverage information is created when running the tests. This information
 can be found in the 'coverage' directory which will be created after the
 first test. Subsequent tests will update this directory.
 
+The script is documented using the YARD gem. To generate documentation for the
+script please run `yardoc` in the script directory then open `doc/index.html` in
+your browser
+
 The basic contribution flow is as follows:
 
 1. Fork it
