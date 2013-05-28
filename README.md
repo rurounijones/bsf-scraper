@@ -64,6 +64,24 @@ For information regarding command-line options please run
 
 ## Contributing
 
+### Developer Documentation
+
+Since this is partly a teaching project I am in the process of
+writing documentation aimed at helping less experienced developers.
+
+To do this I am using the YARD gem which will generate pretty
+HTML documentation from source-code comments. If you want to read
+the HTML then please run
+
+    yardoc --private
+
+In the source directory then open `doc/index.html` in your browser.
+
+(The --private argument means that documentation will be generated
+for private class methods as well as public ones)
+
+### Testing
+
 This script comes with an rspec test suite. Any contributions should be tested.
 
 You can run the tests with either:
@@ -78,13 +96,19 @@ Code coverage information is created when running the tests. This information
 can be found in the 'coverage' directory which will be created after the
 first test. Subsequent tests will update this directory.
 
-The script is documented using the YARD gem. To generate documentation for the
-script please run `yardoc` in the script directory then open `doc/index.html` in
-your browser
+I have not got 100% code coverage because setting up some of the test
+data would have been a burden. I also ran out of development time
+for this.
+
+### Where to start
+
+Through-out this documentation there will be TODO's listed with things
+that need to be done (mostly refactorings) to improve the application. Feel
+free to have a go if you wish to try your hand at helping out.
 
 The basic contribution flow is as follows:
 
-1. Fork it
+1. Fork this repository on Github
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

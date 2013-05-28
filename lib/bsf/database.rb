@@ -13,15 +13,16 @@ module Bsf
   #
   # But do we? As mentioned above we use method_missing meta-programming to forward
   # messages to the Sequel gem. That means that whatever is using this class is using
-  # Sequel gem message calls (For example look at the {#populate_fund_data} private method
-  # in the # {Bsf::Scraper::Command} class ).
+  # Sequel gem message calls (For example look at the
+  # {Bsf::Scraper::Command#populate_fund_data} private method ).
   #
   # For this class to do it's job properly we need to remove the meta-programming and
   # create method calls that can be used by other classes. This way they are using THIS
   # class's API and not the underlying Sequel gem's API.
   #
   # Therefore this class needs some more refactoring. A good example would be a
-  # {#get_all_funds} method that could be called by the above mentioned {#populate_fund_data}
+  # '#get_all_funds' method that could be called by the above
+  # mentioned {Bsf::Scraper::Command#populate_fund_data}
   #
   # As well as acting as the gateway this class also includes one utility method to create
   # a table to persist fund data.
